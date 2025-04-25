@@ -6,4 +6,7 @@ function getComputerChoice() {
     return choices[value - 1]
 }
 
-console.log(getComputerChoice())
+function getHumanChoice() {
+    return prompt("Choose Rock, Paper Scissors !")
+}
+console.log(getHumanChoice())
