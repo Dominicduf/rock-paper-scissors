@@ -23,15 +23,45 @@ function playRound(hummanchoice,computerchoice) {
     let game = states_dictionary[human][computer]
 
     if (game == "TIE") {
-        return "It's a TIE, " + hummanchoice + " is the same has " + computerchoice
+        return [game, "It's a TIE, " + hummanchoice + " is the same has " + computerchoice]
     } else if (game == "WIN") {
-        return "You win, " + hummanchoice + " beats " + computerchoice
+        return [game, "You win, " + hummanchoice + " beats " + computerchoice]
     } else {
-        return "You Lose, " + hummanchoice + " loses against " + computerchoice
+        return [game, "You Lose, " + hummanchoice + " loses against " + computerchoice]
     }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function playGame() {
 
-console.log(playRound(humanSelection, computerSelection))
+    humanScore = 0
+    computerScore = 0
+    ties = 0
+
+    for (let i = 0; i < 5; i++) {
+
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+    
+        const[result,message] = playRound(humanSelection, computerSelection)
+
+        console.log(message)
+
+        if (result == "WIN") {
+            humanScore += 1
+        } else if (result == "LOSE") {
+            computerScore += 1
+        } else {
+            ties += 1
+        }
+    }
+
+    if (humanScore > computerScore) {
+        return "You are the winner !"
+    } else {
+        return "Better luck next time :("
+    }
+
+}
+
+
+console.log(playGame())
