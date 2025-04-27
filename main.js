@@ -6,9 +6,9 @@ function getComputerChoice() {
     return choices[value - 1]
 }
 
-// function getHumanChoice() {
-//     return prompt("Choose Rock, Paper Scissors !")
-// }
+function getHumanChoice() {
+    return prompt("Choose Rock, Paper Scissors !")
+}
 
 function playRound(hummanchoice,computerchoice) {
     human = hummanchoice.toUpperCase()
@@ -31,13 +31,39 @@ function playRound(hummanchoice,computerchoice) {
     }
 }
 
+const container = document.getElementById("game-container")
+const buttonRock = document.createElement("button")
+buttonRock.textContent = "Rock"
+buttonRock.id = "rock"
+container.appendChild(buttonRock)
 
-const buttons = document.querySelectorAll("button");
+const buttonPaper = document.createElement("button")
+buttonPaper.textContent = "Paper"
+buttonPaper.id = "paper"
+container.appendChild(buttonPaper)
+
+const buttonScissors = document.createElement("button")
+buttonScissors.textContent = "Scissors"
+buttonScissors.id = "scissors"
+container.appendChild(buttonScissors)
+
+const displayResult = document.createElement("div")
+displayResult.textContent = "Make your choice!"
+container.appendChild(displayResult)
+
+
+function showresult(humanChoice, computerChoice){
+    const gameResult = playRound(humanChoice, computerChoice)
+    displayResult.textContent = gameResult[1]
+}
+
+const buttons = document.querySelectorAll("button")
 
 buttons.forEach((button) => {
-  const computerchoice = getComputerChoice()
-  button.addEventListener("click", () => console.log(playRound(button.id, computerchoice)))
+  const computerChoice = getComputerChoice()
+  button.addEventListener("click", () => showresult(button.id, computerChoice))
 });
+
 
 // function playGame() {
 
