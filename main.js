@@ -6,9 +6,9 @@ function getComputerChoice() {
     return choices[value - 1]
 }
 
-function getHumanChoice() {
-    return prompt("Choose Rock, Paper Scissors !")
-}
+// function getHumanChoice() {
+//     return prompt("Choose Rock, Paper Scissors !")
+// }
 
 function playRound(hummanchoice,computerchoice) {
     human = hummanchoice.toUpperCase()
@@ -31,37 +31,42 @@ function playRound(hummanchoice,computerchoice) {
     }
 }
 
-function playGame() {
 
-    humanScore = 0
-    computerScore = 0
-    ties = 0
+const buttons = document.querySelectorAll("button");
 
-    for (let i = 0; i < 5; i++) {
+buttons.forEach((button) => {
+  const computerchoice = getComputerChoice()
+  button.addEventListener("click", () => console.log(playRound(button.id, computerchoice)))
+});
 
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
+// function playGame() {
+
+//     humanScore = 0
+//     computerScore = 0
+//     ties = 0
+
+//     for (let i = 0; i < 5; i++) {
+
+//         const humanSelection = getHumanChoice();
+//         const computerSelection = getComputerChoice();
     
-        const[result,message] = playRound(humanSelection, computerSelection)
+//         const[result,message] = playRound(humanSelection, computerSelection)
 
-        console.log(message)
+//         console.log(message)
 
-        if (result == "WIN") {
-            humanScore += 1
-        } else if (result == "LOSE") {
-            computerScore += 1
-        } else {
-            ties += 1
-        }
-    }
+//         if (result == "WIN") {
+//             humanScore += 1
+//         } else if (result == "LOSE") {
+//             computerScore += 1
+//         } else {
+//             ties += 1
+//         }
+//     }
 
-    if (humanScore > computerScore) {
-        return "You are the winner !"
-    } else {
-        return "Better luck next time :("
-    }
+//     if (humanScore > computerScore) {
+//         return "You are the winner !"
+//     } else {
+//         return "Better luck next time :("
+//     }
 
-}
-
-
-console.log(playGame())
+// }
