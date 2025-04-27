@@ -49,50 +49,65 @@ container.appendChild(buttonScissors)
 
 const displayResult = document.createElement("div")
 displayResult.textContent = "Make your choice!"
+displayResult.style.margin = "8px"
 container.appendChild(displayResult)
+
+const displayScore = document.createElement("div")
+displayScore.textContent = "Results : "
+container.appendChild(displayScore)
+const scoreList = document.createElement("ul")
+displayScore.appendChild(scoreList)
+
+const displayGameResult = document.createElement("div")
+container.appendChild(displayGameResult)
 
 
 function showresult(humanChoice, computerChoice){
-    const gameResult = playRound(humanChoice, computerChoice)
-    displayResult.textContent = gameResult[1]
+
+    const gameResult = playRound(humanChoice, computerChoice);
+    displayResult.textContent = gameResult[1];
+
+    const listItem = document.createElement('li');
+    const listText = document.createElement('span');
+
+    listItem.appendChild(listText);
+    listText.textContent = gameResult[0];
+    scoreList.appendChild(listItem);
+    
+    return gameResult[0]
 }
 
 const buttons = document.querySelectorAll("button")
 
 buttons.forEach((button) => {
   const computerChoice = getComputerChoice()
-  button.addEventListener("click", () => showresult(button.id, computerChoice))
+  button.addEventListener("click", () => playGame(button.id, computerChoice))
 });
 
+let humanScore = 0;
+let computerScore = 0;
+let ties = 0;
+let games = 0;
 
-// function playGame() {
+function playGame(humanChoice, computerChoice) {
 
-//     humanScore = 0
-//     computerScore = 0
-//     ties = 0
+    const result = showresult(humanChoice, computerChoice);
 
-//     for (let i = 0; i < 5; i++) {
-
-//         const humanSelection = getHumanChoice();
-//         const computerSelection = getComputerChoice();
+    if (result == "WIN") {
+        humanScore += 1
+    } else if (result == "LOSE") {
+        computerScore += 1
+    } else {
+        ties += 1
+    }
     
-//         const[result,message] = playRound(humanSelection, computerSelection)
+    if (humanScore > computerScore && games+1 == 5) {
+        displayGameResult.textContent = "You Win !"
+    } else if (humanScore < computerScore && games+1 == 5) {
+        displayGameResult.textContent = "You loose !"
+    } else if (games+1 == 5) {
+        displayGameResult.textContent = "It's a tie !"
+    }
 
-//         console.log(message)
-
-//         if (result == "WIN") {
-//             humanScore += 1
-//         } else if (result == "LOSE") {
-//             computerScore += 1
-//         } else {
-//             ties += 1
-//         }
-//     }
-
-//     if (humanScore > computerScore) {
-//         return "You are the winner !"
-//     } else {
-//         return "Better luck next time :("
-//     }
-
-// }
+    games +=1
+}
